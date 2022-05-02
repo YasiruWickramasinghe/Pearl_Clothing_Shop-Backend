@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-
+dotenv.config()
 //routers
 const userRoute = require('./routes/user')
 const authRoute = require('./routes/auth')
@@ -10,7 +10,7 @@ const productRoute = require('./routes/product')
 const cartRoute = require('./routes/cart')
 const orderRoute = require('./routes/order')
 
-dotenv.config()
+const cors = require('cors')
 
 mongoose
   .connect(process.env.MONGO_URL)
@@ -19,6 +19,7 @@ mongoose
     console.log(err)
   })
 
+app.use(cors())
 app.use(express.json())
 //rote api call
 app.use('/api/users', userRoute)
